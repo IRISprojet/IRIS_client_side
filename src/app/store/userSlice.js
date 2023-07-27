@@ -117,7 +117,7 @@ export const login = (user, token) => async (dispatch, getState) => {
 const initialState = {
   role: [], // guest
   data: {
-    displayName: "John Doe",
+    displayName: "welcome",
     photoURL: "assets/images/avatars/brian-hughes.jpg",
     email: "johndoe@withinpixels.com",
     shortcuts: ["apps.calendar", "apps.mailbox", "apps.contacts", "apps.tasks"],

@@ -53,7 +53,7 @@ function NavbarMobileLayout3(props) {
         <Navigation layout="vertical" />
 
         <div className="flex flex-0 items-center justify-center py-48 opacity-10">
-          <img className="w-full max-w-64" src="https://res.cloudinary.com/dbqzzf5xt/image/upload/v1683737654/ESPRIT_COMMUNITY_2_zosxky.png" alt="footer logo" />
+          <img className="w-full max-w-64" src="https://res.cloudinary.com/dhufakahz/image/upload/v1690137235/logo-dark_tt7qyc.png" alt="footer logo" />
         </div>
       </StyledContent>
     </Root>

@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import CompactInvoicePage from './printable/CompactInvoicePage';
 import ModernInvoicePage from './printable/ModernInvoicePage';
+import { authRoles } from 'src/app/auth';
 
 const invoicePagesConfig = {
   settings: {

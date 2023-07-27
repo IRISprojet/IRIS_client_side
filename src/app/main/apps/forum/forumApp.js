@@ -23,7 +23,7 @@ function ForumApp() {
           <div className="flex items-center">
             <img className="w-48 sm:w-64 rounded" src="assets/images/forum.png" alt="" />
             <Typography component="h1" variant="h5" color="inherit" className="font-medium ml-4">
-              Forum
+              event
             </Typography>
           </div>
         </div>

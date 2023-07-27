@@ -66,7 +66,7 @@ function UserMenu(props) {
       >
         {!user.role || user.role.length === 0 ? (
           <>
-            <MenuItem component={Link} to="/sign-in" role="button">
+            <MenuItem component={Link} to="/sign-i" role="button">
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:lock-closed</FuseSvgIcon>
               </ListItemIcon>

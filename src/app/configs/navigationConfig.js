@@ -11,16 +11,18 @@ const navigationConfig = [
     icon: "heroicons-outline:home",
     url: "/apps/help-center",
   },
-  // {
-  //   id: "dashboards.project",
-  //   title: "Clubs",
-  //   type: "item",
-  //   icon: "heroicons-outline:globe-alt",
-  //   url: "/dashboards/project",
-  // },
+ 
+  {
+    auth :authRoles.admin,
+    id: "dashboards.project",
+    title: "my internships",
+    type: "item",
+    icon: "heroicons-outline:globe-alt",
+    url: "/dashboards/project",
+  },
   {
     id: "apps.academy",
-    title: "internship",
+    title: "internships",
     type: "item",
     icon: "heroicons-outline:academic-cap",
     url: "/apps/academy",
@@ -35,7 +37,7 @@ const navigationConfig = [
   // },
   {
   id: "apps.forum",
-  title: "Event",
+  title: "forum",
   type: "item",
   icon: "heroicons-outline:chat",
   url: "/apps/forum",
@@ -54,7 +56,9 @@ const navigationConfig = [
     icon: "heroicons-outline:user-group",
     url: "/apps/profile",
   },
+  
   {
+    auth : authRoles.user ,
     id: "apps.notes",
     title: "Notes",
     type: "item",

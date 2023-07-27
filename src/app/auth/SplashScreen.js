@@ -3,7 +3,7 @@ function SplashScreen() {
     <div id="fuse-splash-screen">
       <div className="center">
         <div className="logo">
-          <img className="w-100" src="..\assets\images\logo-dark.png" alt="logo" />
+          <img width="128" src="assets/images/logo/logo.svg" alt="logo" />
         </div>
         <div className="spinner-wrapper">
           <div className="spinner">

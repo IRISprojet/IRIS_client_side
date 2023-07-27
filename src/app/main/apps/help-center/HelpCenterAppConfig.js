@@ -6,6 +6,7 @@ import HelpCenterApp from './HelpCenterApp';
 import GuideCategory from './guides/GuideCategory';
 import GuideCategories from './guides/GuideCategories';
 import HelpCenterGuide from './guide/HelpCenterGuide';
+import { authRoles } from 'src/app/auth';
 
 const HelpCenterAppConfig = {
   settings: {

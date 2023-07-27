@@ -17,8 +17,8 @@ const Root = styled('div')(({ theme }) => ({
 
 function Logo() {
   return (
-    <Root className="flex items-center">
-      <img className="logo-icon w-100 h-100"  src="..\assets\images\logo-dark.png" alt="logo" />
+    <Root className="flex start items-center">
+      <img className="logo-icon w-1/4 h-100" src="https://res.cloudinary.com/dhufakahz/image/upload/v1690137235/logo-dark_tt7qyc.png" alt="logo" />
 
    
     </Root>

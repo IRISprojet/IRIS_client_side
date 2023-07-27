@@ -19,7 +19,7 @@ function SignOutPage() {
         <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
           <img
             className="w-48 mx-auto"
-           src="..\assets\images\logo-dark.png"
+            src="https://res.cloudinary.com/dhufakahz/image/upload/v1690137235/logo-dark_tt7qyc.png"
             alt="logo"
           />
 
