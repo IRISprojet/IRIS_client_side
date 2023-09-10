@@ -1,19 +1,22 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSlice,
-} from "@reduxjs/toolkit";
-import { api } from "src/app/auth/services/api";
-
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const getProjects = createAsyncThunk(
   'projectDashboardApp/projects/getProjects',
-  async (courseId) => {
-    const response = await api.get(`/api/Internship/creator/${courseId}`);
+  async () => {
+    const response = await axios.get('/api/dashboards/project/projects');
     return response.data;
   }
 );
 
+
+export const getinternships = createAsyncThunk(
+  'projectDashboardApp/projects/getProjects',
+  async () => {
+    const response = await axios.get('/api/internship/');
+    return response.data;
+  }
+);
 const projectsAdapter = createEntityAdapter({});
 
 export const {
@@ -23,7 +26,7 @@ export const {
 } = projectsAdapter.getSelectors((state) => state.projectDashboardApp.projects);
 
 const projectsSlice = createSlice({
-  name: "projectDashboardApp/projects",
+  name: 'projectDashboardApp/projects',
   initialState: projectsAdapter.getInitialState(),
   reducers: {},
   extraReducers: {

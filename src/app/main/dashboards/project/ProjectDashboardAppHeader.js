@@ -1,241 +1,82 @@
-
-import _ from "@lodash";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box } from "@mui/system";
-import FusePageSimple from "@fuse/core/FusePageSimple";
-import useThemeMediaQuery from "@fuse/hooks/useThemeMediaQuery";
-import { selectCategories } from "../academy/store/categoriesSlice";
-import { getCourses, selectCourses  } from "..academy/store/coursesSlice";
-import CourseCard from "./academy/CourseCard";
-import { Link, useParams } from "react-router-dom";
-
-
-
-
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from '@lodash';
+import Button from '@mui/material/Button';
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import { selectUser } from 'app/store/userSlice';
+import { getProjects, selectProjects } from './store/projectsSlice';
 
 function ProjectDashboardAppHeader(props) {
   const dispatch = useDispatch();
+  const projects = useSelector(selectProjects);
+  const user = useSelector(selectUser);
 
-  //const courses = useSelector(selectCourses);
-  const categories = useSelector(selectCategories);
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down("lg"));
-
-  // const theme = useTheme();
-  const [filteredData, setFilteredData] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const type = useParams().type;
-  const courses = useSelector(selectCourses);
-
-  console.log(courses);
+  const [selectedProject, setSelectedProject] = useState({
+    id: 1,
+    menuEl: null,
+  });
 
   useEffect(() => {
-    dispatch(getCourses(type));
-  }, [dispatch, type]);
+    dispatch(getProjects());
+  }, [dispatch]);
 
-  useEffect(() => {
-    function getFilteredArray() {
-      if (searchText?.length === 0 && selectedCategory === "all") {
-        return courses;
-      }
-
-      return _.filter(courses, (item) => {
-        if (selectedCategory !== "all" && item.category.slug !== selectedCategory) {
-          return false;
-        }
-
-        return item.title?.toLowerCase().includes(searchText?.toLowerCase());
-      });
-    }
-    if (courses) {
-      setFilteredData(getFilteredArray());
-    }
-  }, [courses, searchText, selectedCategory]);
-
-  function handleSelectedCategory(event) {
-    setSelectedCategory(event.target.value);
+  function handleChangeProject(id) {
+    setSelectedProject({
+      id,
+      menuEl: null,
+    });
   }
 
-  function handleSearchText(event) {
-    setSearchText(event.target.value);
+  function handleOpenProjectMenu(event) {
+    setSelectedProject({
+      id: selectedProject.id,
+      menuEl: event.currentTarget,
+    });
   }
 
-  console.log("type:", type);
-  console.log("searchText:", searchText);
-  console.log("courses:", courses);
-  console.log("filteredData:", filteredData);
+  function handleCloseProjectMenu() {
+    setSelectedProject({
+      id: selectedProject.id,
+      menuEl: null,
+    });
+  }
+
+  if (_.isEmpty(projects)) {
+    return null;
+  }
+
   return (
-    <FusePageSimple
-      header={
-        <div>
-          <Box
-            className="relative pt-32 pb-112 px-16 sm:pt-80 sm:pb-192 sm:px-64 overflow-hidden"
-            sx={{
-              backgroundColor: "primary.dark",
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(path_to_your_background_image)`,
-              backgroundSize: "100%",
-              backgroundPosition: "center",
-              color: (theme) => theme.palette.getContrastText(theme.palette.primary.main),
-              backgroundBlendMode: "multiply",
-            }}
-          >
-            <div className="flex flex-col items-center justify-center  mx-auto w-full">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { delay: 0 } }}
-              >
-                <Typography className="mt-4 text-32 sm:text-48 font-extrabold tracking-tight leading-tight text-center">
-                  internships
-                </Typography>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { delay: 0.3 } }}
-              >
-                <Typography
-                  color="text.secondary"
-                  className="mt-12 sm:text-20 text-center tracking-tight"
-                >
-                  Here you can find all the resources you need throughout your studies at Esprit.
-                </Typography>
-              </motion.div>
-              {/* <OutlinedInput
-              component={motion.div}
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-              className="flex flex-1 items-center px-16 mx-8 rounded-full h-44 w-full max-w-320 sm:max-w-480 mt-40 sm:mt-80"
-              placeholder="Enter a question, topic or keyword"
-              variant="outlined"
-              fullWidth
-              startAdornment={
-                <InputAdornment position="start">
-                  <FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
-                </InputAdornment>
-              }
-              inputProps={{
-                'aria-label': 'Search',
-              }}
-            /> */}
-            </div>
+    <div className="flex flex-col w-full px-24 sm:px-32"
+ >
+      <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">
+        <div className="flex flex-auto items-center min-w-0"
+        >
+          <Avatar className="flex-0 w-64 h-64" alt="user photo" src={user?.data?.photoURL}>
+            {user?.data?.displayName[0]}
+          </Avatar>
+          <div className="flex flex-col min-w-0 mx-16">
+            <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+              {`Welcome back, ${user.data.displayName}!`}
+            </Typography>
 
-            <svg
-              className="absolute inset-0 pointer-events-none"
-              viewBox="0 0 960 540"
-              width="100%"
-              height="100%"
-              preserveAspectRatio="xMidYMax slice"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                className="text-gray-700 opacity-25"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="100"
-              >
-                <circle r="234" cx="196" cy="23" />
-                <circle r="234" cx="790" cy="491" />
-              </g>
-            </svg>
-          </Box>
-        </div>
-      }
-      content={
-        <div className="flex flex-col flex-1 w-full mx-auto px-24 pt-24 sm:p-40">
-          <div className="flex flex-col shrink-0 sm:flex-row items-center justify-between space-y-16 sm:space-y-0">
-            <div className="flex flex-col sm:flex-row w-full sm:w-auto items-center space-y-16 sm:space-y-0 sm:space-x-16">
-              <FormControl className="flex w-full sm:w-136" variant="outlined">
-                <InputLabel id="category-select-label">Category</InputLabel>
-                <Select
-                  labelId="category-select-label"
-                  id="category-select"
-                  label="Category"
-                  value={selectedCategory}
-                  onChange={handleSelectedCategory}
-                >
-                  <MenuItem value="all">
-                    <em> All </em>
-                  </MenuItem>
-                  {categories.map((category) => (
-                    <MenuItem value={category.slug} key={category._id}>
-                      {category.title}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <TextField
-                label="Search for a internship"
-                placeholder="Enter a keyword..."
-                className="flex w-full sm:w-256 mx-8"
-                value={searchText}
-                inputProps={{
-                  "aria-label": "Search",
-                }}
-                onChange={handleSearchText}
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+            <div className="flex items-center">
+              <FuseSvgIcon size={20} color="action">
+                heroicons-solid:bell
+              </FuseSvgIcon>
+              <Typography className="mx-6 leading-6 truncate" color="text.secondary">
+                here you can find all information you need about you internships
+              </Typography>
             </div>
           </div>
-          {useMemo(() => {
-            const container = {
-              show: {
-                transition: {
-                  staggerChildren: 0.1,
-                },
-              },
-            };
-
-            const item = {
-              hidden: {
-                opacity: 0,
-                y: 20,
-              },
-              show: {
-                opacity: 1,
-                y: 0,
-              },
-            };
-
-            return (
-              courses &&
-              (courses.length > 0 ? (
-                <motion.div
-                  className="flex grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-32 mt-32 sm:mt-40"
-                  variants={container}
-                  initial="hidden"
-                  animate="show"
-                >
-                  {filteredData.map((course) => {
-                    return (
-                      <motion.div variants={item} key={course.id}>
-                        <CourseCard course={course} />
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              ) : (
-                <div className="flex flex-1 items-center justify-center">
-                  <Typography color="text.secondary" className="text-24 my-24">
-                    No internships found!
-                  </Typography>
-                </div>
-              ))
-            );
-          }, [filteredData])}
         </div>
-      }
-      scroll={isMobile ? "normal" : "page"}
-    />
+        
+      </div>
+    
+    </div>
   );
 }
 

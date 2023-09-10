@@ -1,32 +1,56 @@
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { lighten } from "@mui/material/styles";
 import CourseInfo from "../CourseInfo";
 import CourseProgress from "../CourseProgress";
-import React, { useState } from "react";
 import { applyToInternship } from "../store/courseSlice";
-import { useDispatch, useSelector } from "react-redux";
+import Snackbar from "@mui/material/Snackbar";
+
 function CourseCard({ course }) {
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
   const dispatch = useDispatch();
-  const courses = useSelector(applyToInternship);
+  const [isApplied, setIsApplied] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const handleApplyClick = () => {
-    // Dispatch the applyToInternship action here
-    dispatch(applyToInternship());
-  };
-
-  const showMessage = () => {
-    setIsMessageVisible(true);
-
-    // Hide the message after 5 seconds
-    setTimeout(() => {
-      setIsMessageVisible(false);
-    }, 5000);
+    if (!isApplied) {
+      // If not already applied, make a POST request to the API
+      axios
+      .post(`http://localhost:8000/api/applied/${course.id}`, {}, {
+        headers: {
+          'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGNhMTFlZTllMzJiMjhkMWYwMTkwNjYiLCJpYXQiOjE2OTQyMTU4OTAsImV4cCI6MTY5NjgwNzg5MH0.yRAB5_kPyXI3C8rGdwNXdU7qbLiTexFZaYqwIBMuRTI',
+        }
+      })
+      .then((response) => {
+        console.log('Response Status:', response.status);
+        // Handle success
+        if (response.status === 200) {
+          // Dispatch the applyToInternship action or perform other actions
+          dispatch(applyToInternship());
+          // Update the state to indicate that the application was successful
+          setIsApplied(true);
+          // Show the notification
+          setIsNotificationOpen(true);
+          // Close the notification after 3 seconds
+          setTimeout(() => {
+            setIsNotificationOpen(false);
+          }, 3000);
+        }
+      })
+      .catch((error) => {
+        console.error('Error applying to internship:', error);
+      });
+  
+    
+    
+    
+    
+    }
   };
 
   return (
@@ -44,23 +68,28 @@ function CourseCard({ course }) {
               : lighten(theme.palette.background.default, 0.03),
         }}
       >
-        {isMessageVisible && (
-          <div className="messageContainer" style={{ color: "green" }}>
-            You are applying to this internship successfully.
-          </div>
-        )}
         <Button
-          to="/apps/academy/type"
           component={Link}
           onClick={handleApplyClick}
           className="px-16 min-w-128"
           color="secondary"
           variant="contained"
           style={{ backgroundColor: "#00285b" }}
-        ></Button>
+        >
+          {isApplied ? "Applied To" : "Apply Now"}
+        </Button>
       </CardActions>
+
+      {/* Notification Snackbar */}
+      <Snackbar
+        open={isNotificationOpen}
+        autoHideDuration={3000}
+        onClose={() => setIsNotificationOpen(false)}
+        message="Application successful!"
+      />
     </Card>
   );
 }
 
 export default CourseCard;
+

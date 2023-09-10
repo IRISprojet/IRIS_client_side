@@ -13,7 +13,12 @@ function OverdueWidget() {
   return (
     <Paper className="flex flex-col flex-auto shadow rounded-2xl overflow-hidden">
       <div className="flex items-center justify-between px-8 pt-12">
-     
+        <Typography
+          className="px-16 text-lg font-medium tracking-tight leading-6 truncate"
+          color="text.secondary"
+        >
+          {title}
+        </Typography>
         <IconButton aria-label="more" size="large">
           <FuseSvgIcon>heroicons-outline:dots-vertical</FuseSvgIcon>
         </IconButton>
