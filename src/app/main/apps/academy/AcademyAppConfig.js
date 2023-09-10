@@ -17,18 +17,18 @@ const AcademyAppConfig = {
       children: [
         {
           path: "",
-          element: <Navigate to="/apps/academy/level" />,
+          element: <Navigate to="/apps/academy/type" />,
         },
          {
            path: "courses/:courseId/*",
            element: <Course />,
          },
         {
-          path: "courses/:level",
+          path: "internship/:type",
           element: <Courses />,
         },
         {
-          path: "level",
+          path: "type",
           element: <Course_level />,
         },
       ],

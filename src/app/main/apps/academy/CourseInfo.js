@@ -31,7 +31,7 @@ function CourseInfo({ course, className }) {
         </FuseSvgIcon>
         <span className="whitespace-nowrap leading-none">{`${course.duration} minutes`}</span>
       </Typography>
-      <Typography
+      {/* <Typography
         className="flex items-center space-x-6 text-13 mt-8"
         color="text.secondary"
       >
@@ -45,7 +45,7 @@ function CourseInfo({ course, className }) {
             `Completed ${course.progress.completed} times`}
           {course.progress.completed <= 0 && "Never completed"}
         </span>
-      </Typography>
+      </Typography> */}
     </div>
   );
 }

@@ -208,7 +208,7 @@ function Course(props) {
                 </FuseSvgIcon>
               }
             >
-              Back to courses
+              Back to internships
             </Button>
 
             <CourseInfo course={course} />

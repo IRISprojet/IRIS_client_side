@@ -12,7 +12,7 @@ import { Box } from "@mui/system";
 import FusePageSimple from "@fuse/core/FusePageSimple";
 import useThemeMediaQuery from "@fuse/hooks/useThemeMediaQuery";
 import { selectCategories } from "../store/categoriesSlice";
-import { getCourses, selectCourses } from "../store/coursesSlice";
+import { getCourses, selectCourses ,applyToInternship } from "../store/coursesSlice";
 import CourseCard from "./CourseCard";
 import { Link, useParams } from "react-router-dom";
 import { Card } from "@mui/material";
@@ -28,14 +28,14 @@ function Courses() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const level = useParams().level;
+  const type = useParams().type;
   const courses = useSelector(selectCourses);
 
   console.log(courses);
 
   useEffect(() => {
-    dispatch(getCourses(level));
-  }, [dispatch, level]);
+    dispatch(getCourses(type));
+  }, [dispatch, type]);
 
   useEffect(() => {
     function getFilteredArray() {
@@ -64,7 +64,7 @@ function Courses() {
     setSearchText(event.target.value);
   }
 
-  console.log("level:", level);
+  console.log("type:", type);
   console.log("searchText:", searchText);
   console.log("courses:", courses);
   console.log("filteredData:", filteredData);
@@ -89,7 +89,7 @@ function Courses() {
                 animate={{ opacity: 1, transition: { delay: 0 } }}
               >
                 <Typography className="mt-4 text-32 sm:text-48 font-extrabold tracking-tight leading-tight text-center">
-                  ACADEMIC COURSES
+                  internships
                 </Typography>
               </motion.div>
               <motion.div
@@ -167,7 +167,7 @@ function Courses() {
                 </Select>
               </FormControl>
               <TextField
-                label="Search for a course"
+                label="Search for a internship"
                 placeholder="Enter a keyword..."
                 className="flex w-full sm:w-256 mx-8"
                 value={searchText}
@@ -222,7 +222,7 @@ function Courses() {
               ) : (
                 <div className="flex flex-1 items-center justify-center">
                   <Typography color="text.secondary" className="text-24 my-24">
-                    No courses found!
+                    No internships found!
                   </Typography>
                 </div>
               ))

@@ -18,7 +18,7 @@ function Course_level() {
   const faqsMost = useSelector(selectFaqsMost);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const level = queryParams.get("level");
+  const type = queryParams.get("type");
 
   useEffect(() => {
     dispatch(getFaqsMost());
@@ -95,7 +95,7 @@ function Course_level() {
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-60 gap-x-8 sm:gap-x-4 sm:gap-y-4 w-full max-w-sm md:max-w-4xl -mt-64 sm:-mt-96">
   <Card
   component={Link}
-  to="/apps/academy/courses/1"
+  to="/apps/academy/internship/stage d'été"
   role="button"
   className="relative flex flex-col rounded-2xl shadow hover:shadow-lg overflow-hidden transition-shadow ease-in-out duration-150 mx-4 transform-gpu hover:scale-105"
   style={{ width: "300px", height: "300px", marginLeft: "-30%" }}
@@ -131,7 +131,7 @@ function Course_level() {
        
           <Card
             component={Link}
-            to="/apps/academy/courses/2"
+            to="/apps/academy/internship/stage pfe"
             role="button"
             className="relative flex flex-col rounded-2xl shadow hover:shadow-lg overflow-hidden transition-shadow ease-in-out duration-150 mx-4"
             style={{ width: "300px", height: "300px" }}
@@ -168,7 +168,7 @@ function Course_level() {
           </Card>
           <Card
             component={Link}
-            to="/apps/academy/courses/3"
+            to="/apps/academy/internship/autre"
             role="button"
             className="relative flex flex-col rounded-2xl shadow hover:shadow-lg overflow-hidden transition-shadow ease-in-out duration-150 mx-4"
             style={{ width: "300px", height: "300px",marginLeft: "30%" }}

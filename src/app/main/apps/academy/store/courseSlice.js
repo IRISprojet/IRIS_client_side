@@ -28,6 +28,21 @@ export const updateCourse = createAsyncThunk(
   }
 );
 
+export const applyToInternship = createAsyncThunk(
+  "academyApp/course/apply",
+  async (_data, { getState, dispatch }) => {
+    const { _id } = getState().academyApp.course;
+
+    const response = await api.post(`/api/applied/${_id}`, _data);
+
+    const data = await response.data;
+
+    dispatch(showMessage({ message: "applied to internship saved Saved" }));
+
+    return data;
+  }
+);
+
 const courseSlice = createSlice({
   name: "academyApp/course",
   initialState: null,

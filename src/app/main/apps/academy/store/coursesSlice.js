@@ -7,9 +7,9 @@ import { api } from "src/app/auth/services/api";
 
 export const getCourses = createAsyncThunk(
   "academyApp/courses/getCourses",
-  async (level) => {
-    console.log("getCourses: level=", level);
-    const response = await api.get("/api/course/level/" + level);
+  async (type) => {
+    console.log("getCourses: type=", type);
+    const response = await api.get("/api/Internship/type/" + type);
     const data = await response.data;
     console.log("getCourses: data=", data);
     return data;

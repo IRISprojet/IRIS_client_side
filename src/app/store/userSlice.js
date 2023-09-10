@@ -170,6 +170,8 @@ const userSlice = createSlice({
 export const { userLoggedOut, setToken, updateUser } = userSlice.actions;
 
 export const selectUser = ({ user }) => user;
+export const selectUserid = ({ user }) => user._id;
+
 export const selectAccessToken = ({ user }) => user.accessToken;
 export const selectUserShortcuts = ({ user }) => user.data.shortcuts;
 

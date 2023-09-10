@@ -36,7 +36,7 @@ const routes = [
   ),
   {
     path: "/",
-    element: <Navigate to="apps/academy/level" />,
+    element: <Navigate to="/apps/help-center" />,
     auth: settingsConfig.defaultAuth,
   },
   {

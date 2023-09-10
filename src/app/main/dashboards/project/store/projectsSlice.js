@@ -5,10 +5,11 @@ import {
 } from "@reduxjs/toolkit";
 import { api } from "src/app/auth/services/api";
 
+
 export const getProjects = createAsyncThunk(
-  "projectDashboardApp/projects/getProjects",
-  async () => {
-    const response = await api.get("/api/club");
+  'projectDashboardApp/projects/getProjects',
+  async (courseId) => {
+    const response = await api.get(`/api/Internship/creator/${courseId}`);
     return response.data;
   }
 );
